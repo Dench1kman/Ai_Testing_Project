@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generation...</title>
+    <link rel="icon" href="../css/img/Fav_Ic.svg" />
+    <link rel="stylesheet" href="../css/loader.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="loader-container">
+        <!-- Вращающийся Round_Ic -->
+        <img src="../css/img/Round_Ic.svg" class="round" alt="Round Loader" />
+
+        <!-- Пульсирующий Ai_Ic в центре -->
+        <img src="../css/img/Ai_Ic.svg" class="ai" alt="AI Icon" />
+
+        <!-- Левый элемент File_Ic -->
+        <img src="../css/img/File_Ic.svg" class="file" alt="File Icon" />
+
+        <!-- Правый элемент Bulb_Ic -->
+        <img src="../css/img/Bulb_Ic.svg" class="bulb" alt="Bulb Icon" />
+      </div>
+
+      <style>
+        .loader-container {
+          position: relative;
+          width: 200px; /* подогнать под Round_Ic */
+          height: 200px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        /* Вращение Round_Ic */
+        .round {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          animation: spin 2s linear infinite;
+        }
+
+        /* Пульсирующий Ai_Ic */
+        .ai {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 50px; /* немного увеличили */
+          height: 50px;
+          transform: translate(-50%, -50%);
+          animation: pulse 1.5s ease-in-out infinite alternate;
+        }
+
+        /* Левый элемент File_Ic */
+        .file {
+          position: absolute;
+          left: calc(50% - 130px); /* сдвинули левее для 20px от Round_Ic */
+          top: 50%;
+          width: 40px; /* увеличили размер */
+          height: 40px;
+          transform: translateY(-50%);
+          animation: moveUpDown 1s ease-in-out infinite alternate-reverse;
+        }
+
+        .bulb {
+          position: absolute;
+          left: calc(50% + 90px); /* сдвинули правее для 20px от Round_Ic */
+          top: 30%;
+          width: 60px;
+          height: 60px;
+          transform: translateY(-50%);
+          animation: moveUpDown 1s ease-in-out infinite alternate;
+        }
+
+        /* Анимация движения вверх-вниз */
+        @keyframes moveUpDown {
+          from {
+            transform: translateY(-10px);
+          }
+          to {
+            transform: translateY(10px);
+          }
+        }
+
+        /* Пульсация Ai_Ic */
+        @keyframes pulse {
+          from {
+            transform: translate(-50%, -50%) scale(1);
+          }
+          to {
+            transform: translate(-50%, -50%) scale(1.15);
+          }
+        }
+
+        /* Вращение центрального круга */
+
+        @keyframes spin {
+          from {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+          to {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
+        }
+      </style>
+
+      <div class="title">
+        <span>Please wait, we&apos;re processing your request...</span>
+      </div>
+      <div class="text">
+        <span
+          >In a moment, you&apos;ll be able to view, copy, or download the
+          generated results</span
+        >
+      </div>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const nextPage = params.get("next");
+
+      setTimeout(() => {
+        if (nextPage) {
+          window.location.href = nextPage;
+        } else {
+          window.location.href = "index.html";
+        }
+      }, 3000);
+    </script>
+  </body>
+</html>

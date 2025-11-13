@@ -1,0 +1,11 @@
+# VSCode settings
+.vscode/
+
+# MacOS system files
+.DS_Store
+
+# Node
+node_modules/
+
+# Env files
+.env

@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  background-color: #212125;
+  background-image: url("../css/img/BluredBack.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 240px;
+}
+
+.title {
+  display: flex;
+  align-items: end;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 100;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.text {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  display: flex;
+  align-items: end;
+}
