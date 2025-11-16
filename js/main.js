@@ -17,18 +17,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const existingToasts = container.querySelectorAll(".toast");
     if (existingToasts.length >= 3) existingToasts[0].remove();
 
-    const iconSrc =
-      type === "success"
-        ? "../css/img/Link2_Ic.svg"
-        : "../css/img/Warning_Ic.svg";
+    // Выбираем иконку
+    let iconSrc;
+    if (type === "success") iconSrc = "../css/img/Link2_Ic.svg";
+    else if (type === "success-download") iconSrc = "../css/img/Success_Ic.svg";
+    else iconSrc = "../css/img/Warning_Ic.svg";
 
     const toast = document.createElement("div");
     toast.className = "toast";
     toast.innerHTML = `
-      <div class="toast-bar"></div>
-      <img src="${iconSrc}" alt="icon" class="toast-icon" />
-      <span class="toast-text">${message}</span>
-    `;
+    <div class="toast-bar"></div>
+    <img src="${iconSrc}" alt="icon" class="toast-icon" />
+    <span class="toast-text">${message}</span>
+  `;
     container.appendChild(toast);
 
     setTimeout(() => (toast.style.opacity = "1"), 10);
@@ -37,6 +38,15 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => toast.remove(), 500);
     }, 4000);
   }
+
+  // --- Кнопка Download ---
+  const downloadBtn = document.querySelector(".download-btn");
+  downloadBtn?.addEventListener("click", () => {
+    setTimeout(() => (downloadBtn.style.filter = ""), 200);
+
+    // Показываем toast уведомление
+    showToast("Download started!", "success-download");
+  });
 
   // --- Обработчик кнопки вставки ссылки ---
   if (pasteBtn && input) {
@@ -110,32 +120,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("popstate", (event) => {
       event.preventDefault();
-      if (document.getElementById("back-popup")) return;
-
-      const popup = document.createElement("div");
-      popup.id = "back-popup";
-      popup.innerHTML = `
-        <div class="popup-overlay"></div>
-        <div class="popup-box">
-          <p>Are you sure you want to go back to the main page?<br>All your data will be lost.</p>
-          <div class="popup-buttons">
-            <button id="popup-yes">Yes</button>
-            <button id="popup-no">No</button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(popup);
-
-      document.getElementById("popup-yes").onclick = () => {
-        popup.remove();
-        window.location.replace("../index.html");
-      };
-      document.getElementById("popup-no").onclick = () => {
-        popup.remove();
-        history.pushState({ fake: true }, "", location.href);
-      };
+      showCustomPopup(
+        "Are you sure you want to go back to the main page?<br>All your data will be lost.",
+        () => {
+          window.location.replace("../index.html"); // Действие при "Yes"
+        },
+        () => {
+          history.pushState({ fake: true }, "", location.href); // Действие при "No"
+        }
+      );
     });
   }
+
+  // --- Кнопка Home ---
+  const homeBtn = document.querySelector(".home-btn");
+
+  homeBtn?.addEventListener("click", () => {
+    // Генерируем попап точно так же, как при возврате назад
+    showCustomPopup(
+      "Are you sure you want to go back to the main page?<br>All your data will be lost.",
+      () => {
+        window.location.href = `../index.html`;
+      },
+      () => {
+        // Back on the current page
+      }
+    );
+  });
 
   // --- Главная страница: блокировка возврата и очистка поля ---
   if (currentPage.endsWith("index.html")) {
@@ -200,7 +211,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Действие кнопки Generate ---
     generateBtn.addEventListener("click", () => {
-      showToast("Generate button clicked!", "success");
+      // Используем кастомный попап для подтверждения перехода
+      showCustomPopup(
+        "Are you sure you want to generate new test cases?<br>All your data will be lost.",
+        () => {
+          // Действие при подтверждении
+          window.location.href = `../pages/loader.html?next=testcases.html`;
+        },
+        () => {
+          // Back to the current page
+        }
+      );
     });
   }
 });
+
+// --- Разворачивание и сворачивание кейсов ---
+document.querySelectorAll(".tc-item").forEach((item) => {
+  const arrow = item.querySelector(".tc-arrow");
+  const content = item.querySelector(".tc-content"); // блок с steps/expected result
+
+  if (!arrow || !content) return;
+
+  // Изначально скрываем контент
+  content.style.maxHeight = "0px";
+  content.style.overflow = "hidden";
+  content.style.transition = "max-height 0.3s ease";
+
+  arrow.addEventListener("click", () => {
+    const isOpen = item.classList.contains("open");
+
+    if (isOpen) {
+      item.classList.remove("open");
+      content.style.maxHeight = "0px"; // Мне кажется нужно что то тут поменять чтобы плавно закрывалось
+    } else {
+      item.classList.add("open");
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+});
+
+// --- Универсальная функция для кастомного попапа ---
+function showCustomPopup(message, onConfirm, onCancel) {
+  // Если попап уже есть, не создаём новый
+  if (document.getElementById("back-popup")) return;
+
+  const popup = document.createElement("div");
+  popup.id = "back-popup";
+  popup.innerHTML = `
+    <div class="popup-overlay"></div>
+    <div class="popup-box">
+      <p>${message}</p>
+      <div class="popup-buttons">
+        <button id="popup-yes">Yes</button>
+        <button id="popup-no">No</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(popup);
+
+  // Подтвердить
+  document.getElementById("popup-yes").onclick = () => {
+    popup.remove();
+    if (onConfirm) onConfirm();
+  };
+
+  // Отмена
+  document.getElementById("popup-no").onclick = () => {
+    popup.remove();
+    if (onCancel) onCancel();
+  };
+}

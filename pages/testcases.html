@@ -17,6 +17,7 @@
           class="link-icon"
           id="paste-link"
         />
+
         <input
           type="text"
           class="url-input"
@@ -24,6 +25,91 @@
           placeholder="Enter your URL here"
           autocomplete="off"
         />
+      </div>
+
+      <!-- ===================== -->
+      <!--     TEST CASES BLOCK   -->
+      <!-- ===================== -->
+      <div class="testcases-wrapper">
+        <div class="tc-container">
+          <div class="tc-title-box">
+            <span>Test Cases</span>
+          </div>
+
+          <div class="tc-types">
+            <div class="tc-type">
+              <img src="../css/img/PositiveTC_Ic.svg" />
+              &ndash; Positive Cases
+            </div>
+
+            <div class="tc-type">
+              <img src="../css/img/NegativeTC_Ic.svg" />
+              &ndash; Negative Cases
+            </div>
+          </div>
+
+          <div class="tc-list">
+            <!-- ЗАГЛУШКА-1 -->
+            <div class="tc-item">
+              <div class="tc-header">
+                <div class="tc-name">
+                  <img src="../css/img/PositiveTC_Ic.svg" />
+                  <strong>TC 1</strong>
+                  <span>- Login with valid credentials</span>
+                </div>
+
+                <img class="tc-arrow" src="../css/img/DropdownArrow_Ic.svg" />
+              </div>
+
+              <div class="tc-content">
+                <p><strong>Steps:</strong></p>
+                <ul>
+                  <li>Open login page</li>
+                  <li>Enter valid email and password</li>
+                  <li>Click Login</li>
+                </ul>
+
+                <p><strong>Expected Result:</strong></p>
+                <p>User is redirected to dashboard</p>
+              </div>
+            </div>
+
+            <!-- ЗАГЛУШКА-2 -->
+            <div class="tc-item">
+              <div class="tc-header">
+                <div class="tc-name">
+                  <img src="../css/img/NegativeTC_Ic.svg" />
+                  <strong>TC 2</strong>
+                  <span>- Login with empty password</span>
+                </div>
+
+                <img class="tc-arrow" src="../css/img/DropdownArrow_Ic.svg" />
+              </div>
+
+              <div class="tc-content">
+                <p><strong>Steps:</strong></p>
+                <ul>
+                  <li>Open login page</li>
+                  <li>Enter email only</li>
+                  <li>Click Login</li>
+                </ul>
+
+                <p><strong>Expected Result:</strong></p>
+                <p>Error “Password is required” is displayed</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tc-footer">
+            <button class="home-btn">
+              <img src="../css/img/Home_Ic.svg" /> Home
+            </button>
+
+            <button class="download-btn">
+              <img src="../css/img/Download_Ic.svg" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
