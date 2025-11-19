@@ -3,17 +3,238 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
     <title>TC & Code Generation</title>
     <link rel="icon" href="../css/img/Fav_Ic.svg" />
     <link rel="stylesheet" href="../css/style.css" />
   </head>
 
   <body>
-    <div class="container"></div>
+    <div class="container testcases-container">
+      <div class="input-wrapper">
+        <img
+          src="../css/img/Link_Ic.svg"
+          alt="Paste Link"
+          class="link-icon"
+          id="paste-link"
+        />
+
+        <input
+          type="text"
+          class="url-input"
+          id="url-input"
+          placeholder="Enter your URL here"
+          autocomplete="off"
+        />
+      </div>
+
+      <!-- ===================== -->
+      <!--     TEST CASES BLOCK   -->
+      <!-- ===================== -->
+      <div class="testcases-wrapper two-columns">
+        <!-- ЛЕВОЕ ПОЛЕ — ТЕСТ-КЕЙСЫ -->
+        <div class="tc-container code-page">
+          <div class="tc-title-box">
+            <span>Test Cases</span>
+          </div>
+
+          <div class="tc-types">
+            <div class="tc-type">
+              <img src="../css/img/PositiveTC_Ic.svg" />
+              &ndash; Positive Cases
+            </div>
+
+            <div class="tc-type">
+              <img src="../css/img/NegativeTC_Ic.svg" />
+              &ndash; Negative Cases
+            </div>
+          </div>
+
+          <div class="tc-list">
+            <!-- ЗАГЛУШКА-1 -->
+            <div class="tc-item">
+              <div class="tc-header">
+                <div class="tc-name">
+                  <img src="../css/img/PositiveTC_Ic.svg" />
+                  <strong>TC 1 - </strong>
+                  <span class="tc-title">Login with valid credentials</span>
+                </div>
+
+                <img class="tc-arrow" src="../css/img/DropdownArrow_Ic.svg" />
+              </div>
+
+              <div class="tc-content">
+                <p><strong>Steps:</strong></p>
+                <ul>
+                  <li>Open login page</li>
+                  <li>Enter valid email and password</li>
+                  <li>Click Login</li>
+                </ul>
+
+                <p><strong>Expected Result:</strong></p>
+                <p>User is redirected to dashboard</p>
+              </div>
+            </div>
+
+            <!-- ЗАГЛУШКА-2 -->
+            <div class="tc-item">
+              <div class="tc-header">
+                <div class="tc-name">
+                  <img src="../css/img/NegativeTC_Ic.svg" />
+                  <strong>TC 2 - </strong>
+                  <span>Login with empty password</span>
+                </div>
+
+                <img class="tc-arrow" src="../css/img/DropdownArrow_Ic.svg" />
+              </div>
+
+              <div class="tc-content">
+                <p><strong>Steps:</strong></p>
+                <ul>
+                  <li>Open login page</li>
+                  <li>Enter email only</li>
+                  <li>Click Login</li>
+                </ul>
+
+                <p><strong>Expected Result:</strong></p>
+                <p>Error “Password is required” is displayed</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tc-footer">
+            <button class="home-btn">
+              <img src="../css/img/Home_Ic.svg" /> Home
+            </button>
+
+            <button class="download-btn cases-download">
+              <img src="../css/img/Download_Ic.svg" />
+            </button>
+          </div>
+        </div>
+
+        <!-- ПРАВОЕ ПОЛЕ — CODE
+        <div class="code-container">
+          <div class="code-header">
+            <div class="code-title-box">Autotests</div>
+
+            <div class="code-framework">
+              <span>WebdriverIO</span>
+            </div>
+          </div>
+
+          <pre class="code-area"><code class="language-js">
+describe('Login Page Tests', () => {
+
+  it('should login successfully with valid credentials', async () => {
+    await browser.url('https://example.com/login');
+    await $('#email').setValue('user@example.com');
+    await $('#password').setValue('Password123');
+    await $('#loginBtn').click();
+    await expect(browser).toHaveUrlContaining('/dashboard');
+  });
+
+  it('should keep user logged in when Remember Me is checked', async () => {
+    await browser.url('https://example.com/login');
+    await $('#email').setValue('user@example.com');
+    await $('#password').setValue('Password123');
+    await $('#rememberMe').click();
+    await $('#loginBtn').click();
+    await browser.refresh();
+    await expect(browser).toHaveUrlContaining('/dashboard');
+  });
+
+  it('should hide password input text', async () => {
+    await browser.url('https://example.com/login');
+    const type = await $('#password').getAttribute('type');
+    expect(type).toBe('password');
+  });
+
+  it('should show error for invalid password', async () => {
+    await browser.url('https://example.com/login');
+    await $('#email').setValue('user@example.com');
+    await $('#password').setValue('wrongPass');
+    await $('#loginBtn').click();
+  });
+
+});
+  </code></pre>
+
+          <div class="code-footer">
+            <button class="copy-btn">
+              <img src="../css/img/Copy_Ic.svg" />
+            </button>
+
+            <button class="download-btn code-download">
+              <img src="../css/img/Download_Ic.svg" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- ПРАВОЕ ПОЛЕ — CODE -->
+<!-- Подключаем Prism.js CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+<!-- Контейнер с кодом -->
+<div class="code-container">
+  <div class="code-header">
+    <div class="code-title-box">Autotests</div>
+    <div class="code-framework"><span>WebdriverIO</span></div>
+  </div>
+
+  <!-- Пример кода -->
+  <pre class="code-area"><code class="language-js">
+describe('Login Page Tests', () => {
+
+  it('should login successfully with valid credentials', async () => {
+    await browser.url('https://example.com/login');
+    await $('#email').setValue('user@example.com');
+    await $('#password').setValue('Password123');
+    await $('#loginBtn').click();
+    await expect(browser).toHaveUrlContaining('/dashboard');
+  });
+
+  it('should keep user logged in when Remember Me is checked', async () => {
+    await browser.url('https://example.com/login');
+    await $('#email').setValue('user@example.com');
+    await $('#password').setValue('Password123');
+    await $('#rememberMe').click();
+    await $('#loginBtn').click();
+    await browser.refresh();
+    await expect(browser).toHaveUrlContaining('/dashboard');
+  });
+
+  it('should hide password input text', async () => {
+    await browser.url('https://example.com/login');
+    const type = await $('#password').getAttribute('type');
+    expect(type).toBe('password');
+  });
+
+  it('should show error for invalid password', async () => {
+    await browser.url('https://example.com/login');
+    await $('#email').setValue('user@example.com');
+    await $('#password').setValue('wrongPass');
+    await $('#loginBtn').click();
+  });
+  </code></pre>
+
+  <div class="code-footer">
+    <button class="copy-btn">
+      <img src="../css/img/Copy_Ic.svg" />
+    </button>
+    <button class="download-btn code-download">
+      <img src="../css/img/Download_Ic.svg" />
+    </button>
+  </div>
+</div>
+
+<!-- Подключаем Prism.js JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-javascript.min.js"></script>
+
+
     <script src="../js/main.js"></script>
-    <!-- <script>
-      // Вызываем функцию, передаем URL главной страницы
-      setupBackConfirm("../index.html");
-    </script> -->
   </body>
 </html>

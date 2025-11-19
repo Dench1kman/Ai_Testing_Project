@@ -30,11 +30,11 @@ body {
 .testcases-container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* расстояние между инпутом и большим полем */
+  gap: 20px;
   width: 100%;
-  max-width: 900px; /* или сколько нужно */
-  margin: 0 auto; /* центрируем */
-  padding: 40px 0; /*отступы сверху и снизу */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 0 0 0;
 }
 
 .title {
@@ -325,20 +325,29 @@ input.url-input:-moz-autofill {
   /* margin: 40px auto; */
   padding: 0 0 20px 0;
 
+  /* display: flex; */
+  flex-direction: column;
+  /* position: relative; */
+}
+
+.tc-container.code-page {
+  width: 500px;
   display: flex;
   flex-direction: column;
-  position: relative;
+  overflow: hidden;
+  /* max-height: 100%; */
+  max-height: calc(100vh - 40px);
 }
 
 /* Верхняя табличка Test Cases */
 .tc-title-box {
   background: #d6d6d7;
   color: #303035;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  padding: 8px 16px;
-  border-top-left-radius: 22px;
-  border-bottom-right-radius: 22px;
+  padding: 8px 20px;
+  border-top-left-radius: 28px;
+  border-bottom-right-radius: 28px;
   width: fit-content;
 }
 
@@ -366,9 +375,15 @@ input.url-input:-moz-autofill {
 
 /* Список кейсов */
 .tc-list {
+  flex: 1;
   margin-top: 20px;
   padding: 0 10px 0 20px;
-  max-height: 60vh;
+  /* max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #5d5c6d #303035;
+  box-sizing: border-box; */
   overflow-y: auto;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
@@ -395,6 +410,18 @@ input.url-input:-moz-autofill {
   z-index: 1;
 }
 
+/* Только картинка PositiveTC_Ic */
+.tc-item img[src$="PositiveTC_Ic.svg"] {
+  transform: scale(0.7);
+  transform-origin: center;
+}
+
+/* Только картинка NegativeTC_Ic */
+.tc-item img[src$="NegativeTC_Ic.svg"] {
+  transform: scale(0.7);
+  transform-origin: center;
+}
+
 /* Градиентный border через псевдоэлемент */
 .tc-item::before {
   content: "";
@@ -417,10 +444,46 @@ input.url-input:-moz-autofill {
   cursor: pointer;
 }
 
+/* .tc-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* display: inline-block; *
+  max-width: 370px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+} */
+
 .tc-name {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.tc-title {
+  max-width: 290px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tc-item.open .tc-name {
+  align-items: start;
+}
+
+.tc-item.open strong {
+  margin-top: 5px;
+}
+
+.tc-item.open span {
+  margin-top: 5px;
+}
+
+.tc-item.open .tc-title {
+  white-space: normal; /* перенос при раскрытии */
+  overflow: visible;
 }
 
 .tc-name strong {
@@ -441,11 +504,18 @@ input.url-input:-moz-autofill {
   transform: rotate(180deg);
 }
 
+/* Когда кейс раскрыт */
+.tc-item.open .tc-name strong {
+  /* max-width: none; снимаем ограничение по ширине */
+  white-space: normal; /* разрешаем перенос */
+}
+
 /* Контент кейса */
 .tc-content {
   margin-top: 16px;
   display: none;
   color: #ffffffc8;
+  overflow: hidden;
 }
 
 .tc-item.open .tc-content {
@@ -458,6 +528,14 @@ input.url-input:-moz-autofill {
   justify-content: space-between;
   padding: 0px 20px;
   margin-top: 10px;
+}
+
+.code-footer {
+  position: absolute;
+  bottom: 20px; /* отступ от низа поля */
+  right: 20px; /* отступ от правого края */
+  display: flex;
+  gap: 15px; /* расстояние между кнопками */
 }
 
 .home-btn {
@@ -488,10 +566,191 @@ input.url-input:-moz-autofill {
   cursor: pointer;
 }
 
-.download-btn:active {
+.copy-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: none;
+  background: #5d5c6d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.download-btn:active,
+.copy-btn:active {
   filter: brightness(0.8);
 }
 
 .download-btn img {
   width: 22px;
+}
+
+/* Две колонки */
+.two-columns {
+  /* display: flex;
+  gap: 20px;
+
+  height: calc(100vh - 40px);
+  padding-bottom: 20px; 
+  box-sizing: border-box;
+
+  overflow: hidden; */
+  display: flex;
+  gap: 20px;
+
+  height: calc(100vh - 120px);
+  padding-bottom: 20px;
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.code-container {
+  flex: 1;
+  width: 650px;
+
+  border-radius: 30px;
+  border: 2px solid transparent;
+
+  background-image: linear-gradient(#171717c2, #171717c2),
+    linear-gradient(to top right, #3030352f, #6666662f);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+  max-height: 60vh;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  /* scrollbar-color: #5d5c6d #171717c2; */
+  box-sizing: border-box;
+
+  height: 100%;
+  max-height: 100%;
+
+  overflow: hidden;
+  position: relative;
+}
+
+.code-header {
+  display: flex;
+  width: 102%;
+  align-items: center;
+  background: #5d5c6d;
+}
+
+.code-title-box {
+  background: linear-gradient(90deg, #671fab, #ffa9f9);
+  color: #171717;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 8px 20px;
+  border-top-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  width: fit-content;
+}
+
+.code-framework {
+  margin-left: 15px;
+}
+
+.code-framework span {
+  color: #ea5906;
+  font-weight: bold;
+}
+
+/* .code-area {
+  flex: 1;
+  margin-top: 0;
+  padding: 0 10px 0 18px;
+  border-radius: 12px;
+  overflow: auto;
+  font-family: "Consolas", "Fira Code", monospace;
+  font-size: 12px;
+  line-height: 1.35;
+  white-space: pre-wrap;
+  background: transparent;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+/* Подсветка синтаксиса *
+.language-js .token.keyword {
+  color: #569cd6;
+}
+.language-js .token.string {
+  color: #ce9178;
+}
+.language-js .token.function {
+  color: #dcdcaa;
+}
+.language-js .token.number {
+  color: #b5cea8;
+}
+.language-js .token.punctuation {
+  color: #c8c8c8;
+}
+.language-js .token.operator {
+  color: #d4d4d4;
+}
+.language-js .token.comment {
+  color: #6a9955;
+} */
+
+/* Основное поле кода */
+.code-container .code-area {
+  flex: 1;
+  margin: 0;
+  padding: 10px 15px;
+  border-radius: 12px;
+  overflow: auto;
+  font-family: "Consolas", "Fira Code", monospace;
+  font-size: 14px; /* чуть меньше */
+  line-height: 1.4;
+  white-space: pre-wrap; /* перенос строк внутри */
+  /* background-color: #171717a0 !important; черный фон */
+  color: #ffffff !important;
+}
+
+/* Подсветка синтаксиса для Prism.js */
+.code-container .code-area .token.keyword {
+  color: #569cd6 !important;
+}
+.code-container .code-area .token.string {
+  color: #ce9178 !important;
+}
+.code-container .code-area .token.function {
+  color: #dcdcaa !important;
+}
+.code-container .code-area .token.number {
+  color: #b5cea8 !important;
+}
+.code-container .code-area .token.punctuation {
+  color: #c8c8c8 !important;
+}
+.code-container .code-area .token.operator {
+  color: #d4d4d4 !important;
+}
+.code-container .code-area .token.comment {
+  color: #6a9955 !important;
+}
+
+/* Дополнительно: убираем фон у обертки Prism, если есть */
+.code-container pre[class*="language-"] {
+  background: transparent !important;
+  margin: 0 0 20px 20px;
+  padding: 0;
+}
+
+/* Скролл для кода */
+.code-container .code-area::-webkit-scrollbar {
+  width: 8px;
+}
+.code-container .code-area::-webkit-scrollbar-thumb {
+  background-color: #5d5c6d;
+  border-radius: 4px;
 }
