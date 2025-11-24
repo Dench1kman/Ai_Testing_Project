@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script type="module" src="../js/main.js"></script>
     <title>Test Cases</title>
     <link rel="icon" href="../css/img/Fav_Ic.svg" />
     <link rel="stylesheet" href="../css/style.css" />
@@ -18,7 +19,6 @@
           class="link-icon"
           id="paste-link"
         />
-
         <input
           type="text"
           class="url-input"
@@ -28,9 +28,6 @@
         />
       </div>
 
-      <!-- ===================== -->
-      <!--     TEST CASES BLOCK   -->
-      <!-- ===================== -->
       <div class="testcases-wrapper">
         <div class="tc-container">
           <div class="tc-title-box">
@@ -50,7 +47,6 @@
           </div>
 
           <div class="tc-list">
-            <!-- ЗАГЛУШКА-1 -->
             <div class="tc-item">
               <div class="tc-header">
                 <div class="tc-name">
@@ -58,7 +54,6 @@
                   <strong>TC 1</strong>
                   <span>- Login with valid credentials</span>
                 </div>
-
                 <img class="tc-arrow" src="../css/img/DropdownArrow_Ic.svg" />
               </div>
 
@@ -69,13 +64,11 @@
                   <li>Enter valid email and password</li>
                   <li>Click Login</li>
                 </ul>
-
                 <p><strong>Expected Result:</strong></p>
                 <p>User is redirected to dashboard</p>
               </div>
             </div>
 
-            <!-- ЗАГЛУШКА-2 -->
             <div class="tc-item">
               <div class="tc-header">
                 <div class="tc-name">
@@ -83,7 +76,6 @@
                   <strong>TC 2</strong>
                   <span>- Login with empty password</span>
                 </div>
-
                 <img class="tc-arrow" src="../css/img/DropdownArrow_Ic.svg" />
               </div>
 
@@ -94,7 +86,6 @@
                   <li>Enter email only</li>
                   <li>Click Login</li>
                 </ul>
-
                 <p><strong>Expected Result:</strong></p>
                 <p>Error “Password is required” is displayed</p>
               </div>
@@ -105,7 +96,6 @@
             <button class="home-btn">
               <img src="../css/img/Home_Ic.svg" /> Home
             </button>
-
             <button class="download-btn cases-download">
               <img src="../css/img/Download_Ic.svg" />
             </button>
@@ -113,7 +103,5 @@
         </div>
       </div>
     </div>
-
-    <script src="../js/main.js"></script>
   </body>
 </html>
