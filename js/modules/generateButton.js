@@ -1,6 +1,5 @@
 import { currentPage, input, inputWrapper, pasteBtn } from "./constants.js";
 import { showToast } from "./toast.js";
-import { showCustomPopup } from "./popup.js";
 
 export function enableGenerateButton() {
   // Показываем кнопку только на нужных страницах
@@ -57,13 +56,43 @@ export function enableGenerateButton() {
 
   // Действие Generate
   generateBtn.addEventListener("click", () => {
-    showCustomPopup(
-      "Are you sure you want to generate new test cases?<br>All your data will be lost.",
-      () => {
+    fetch("http://localhost:3000/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: input.value }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("HTML страницы:", data.html);
+        // Тут передать html в AI для генерации тестов
+      })
+      .catch((err) => console.error(err));
+  });
+
+  generateBtn.addEventListener("click", () => {
+    const url = input.value.trim();
+    if (!url) {
+      showToast("Please enter a valid URL!", "error");
+      return;
+    }
+
+    fetch("http://localhost:3000/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("HTML страницы:", data.html);
+        // TODO: Здесь можно передавать data.html в AI для генерации тестов
+
+        // После успешного сканирования — переходим на loader
         const currentPageName = window.location.pathname.split("/").pop();
         window.location.href = `../pages/loader.html?next=${currentPageName}`;
-      },
-      () => {}
-    );
+      })
+      .catch((err) => {
+        console.error(err);
+        showToast("Failed to scan the page!", "error");
+      });
   });
 }
